@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@source "../views";
+
+@theme {
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+  --color-brand-bg: #0c0c0c;
+  --color-brand-text: #EAE8E3;
+  --color-brand-accent: #B2A79E;
+}
+
+@layer utilities {
+  .clip-mask {
+    overflow: hidden;
+    display: inline-block;
+  }
+  .reveal-text span {
+    display: inline-block;
+    transform: translateY(100%);
+  }
+}
+
+/* Lenis Specific */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
