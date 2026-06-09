@@ -26,15 +26,28 @@
     </style>
 </head>
 <body class="selection:bg-[#EAE8E3] selection:text-[#0c0c0c]">
+    <!-- Film Grain Overlay -->
+    <div class="film-grain"></div>
+    
+    <!-- Custom Cursor -->
+    <div class="custom-cursor hidden md:block"></div>
+    
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[9999] bg-[#0c0c0c] flex justify-center items-center text-[#EAE8E3]">
+        <div class="text-hero font-serif overflow-hidden">
+            <span id="loader-count" class="inline-block">0</span><span class="inline-block">%</span>
+        </div>
+    </div>
 
 <!-- Navigation -->
-<nav class="fixed w-full z-50 p-6 md:p-10 mix-blend-difference text-[#EAE8E3] font-light text-sm tracking-wide uppercase flex justify-between items-center pointer-events-none">
-    <div class="pointer-events-auto hover:opacity-50 transition-opacity"><a href="#">Natz</a></div>
-    <div class="pointer-events-auto flex gap-8">
-        <a href="#work" class="hover:opacity-50 transition-opacity">Work</a>
-        <a href="#about" class="hover:opacity-50 transition-opacity">About</a>
+<nav class="fixed w-full z-50 p-6 md:p-10 text-[#EAE8E3] font-light text-sm tracking-wide uppercase flex justify-between items-center pointer-events-none">
+    <div class="pointer-events-auto hover:opacity-50 transition-opacity mix-blend-difference magnetic"><a href="#">Natz</a></div>
+    <div class="pointer-events-auto flex gap-8 mix-blend-difference items-center">
+        <button id="audio-toggle" class="hover:opacity-50 transition-opacity magnetic inline-block uppercase tracking-wide">Sound: OFF</button>
+        <a href="#work" class="hover:opacity-50 transition-opacity magnetic inline-block">Work</a>
+        <a href="#about" class="hover:opacity-50 transition-opacity magnetic inline-block">About</a>
         @if(isset($profile->github_link))
-        <a href="{{ $profile->github_link }}" target="_blank" class="hover:opacity-50 transition-opacity">Github</a>
+        <a href="{{ $profile->github_link }}" target="_blank" class="hover:opacity-50 transition-opacity magnetic inline-block">Github</a>
         @endif
     </div>
 </nav>
@@ -88,7 +101,7 @@
                     </div>
                     
                     <!-- Text Info -->
-                    <div class="lg:col-span-5 {{ $index % 2 !== 0 ? 'lg:order-1' : '' }} flex flex-col justify-center">
+                    <div class="lg:col-span-5 {{ $index % 2 !== 0 ? 'lg:order-1' : '' }} flex flex-col justify-center project-trigger cursor-pointer" data-title="{{ $project->title }}" data-desc="{{ $project->description }}">
                         <div class="mb-4 fade-up text-xs font-light tracking-widest text-accent uppercase">0{{ $index + 1 }}</div>
                         <h3 class="text-5xl md:text-6xl font-serif text-white mb-8 fade-up">{{ $project->title }}</h3>
                         <p class="text-lg text-accent font-light leading-relaxed mb-10 fade-up max-w-md">{{ $project->description }}</p>
@@ -123,6 +136,16 @@
         </div>
     </section>
 
+    <!-- Marquee Section -->
+    <section class="py-12 md:py-24 border-y border-[#333] overflow-hidden bg-[#0c0c0c] flex items-center">
+        <div class="marquee-container flex whitespace-nowrap">
+            <div class="marquee-content text-4xl md:text-8xl font-serif text-[#EAE8E3] opacity-20 uppercase tracking-tighter">
+                <span>CREATIVE DEVELOPER &mdash; LARAVEL &mdash; VUE &mdash; REACT &mdash; GSAP &mdash; TAILWIND CSS &mdash; </span>
+                <span>CREATIVE DEVELOPER &mdash; LARAVEL &mdash; VUE &mdash; REACT &mdash; GSAP &mdash; TAILWIND CSS &mdash; </span>
+            </div>
+        </div>
+    </section>
+
     <!-- About Section -->
     <section id="about" class="py-32 md:py-48">
         <div class="max-w-screen-2xl mx-auto px-6 md:px-10">
@@ -132,7 +155,6 @@
                     <div class="text-xl md:text-2xl text-accent font-light leading-relaxed mb-16 reveal-text clip-mask">
                         <span>{{ $profile->bio ?? '' }}</span>
                     </div>
-
                 </div>
                 
                 <div class="lg:col-span-6 lg:col-start-7 lg:mt-32">
@@ -167,7 +189,7 @@
     <!-- Massive Contact Banners -->
     <section class="border-y border-[#333] divide-y divide-[#333]">
         <a href="https://wa.me/6281910789541" target="_blank" class="block w-full py-12 md:py-24 group relative overflow-hidden bg-[#0c0c0c]">
-            <div class="absolute inset-0 bg-[#EAE8E3] transform translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] z-0"></div>
+            <div class="absolute inset-0 bg-[#EAE8E3] transform translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] z-0 pointer-events-none"></div>
             <div class="relative z-10 flex justify-between items-center px-6 md:px-10 mix-blend-difference text-[#EAE8E3]">
                 <span class="text-4xl sm:text-5xl md:text-8xl font-serif uppercase tracking-tighter group-hover:italic transition-all duration-700">WhatsApp</span>
                 <i data-lucide="arrow-up-right" class="w-10 h-10 md:w-20 md:h-20 transform group-hover:rotate-45 transition-transform duration-700"></i>
@@ -175,7 +197,7 @@
         </a>
         
         <a href="mailto:muhamadnajwan@gmail.com" class="block w-full py-12 md:py-24 group relative overflow-hidden bg-[#0c0c0c]">
-            <div class="absolute inset-0 bg-[#EAE8E3] transform translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] z-0"></div>
+            <div class="absolute inset-0 bg-[#EAE8E3] transform translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] z-0 pointer-events-none"></div>
             <div class="relative z-10 flex justify-between items-center px-6 md:px-10 mix-blend-difference text-[#EAE8E3]">
                 <span class="text-4xl sm:text-5xl md:text-8xl font-serif uppercase tracking-tighter group-hover:italic transition-all duration-700">Email Me</span>
                 <i data-lucide="arrow-up-right" class="w-10 h-10 md:w-20 md:h-20 transform group-hover:rotate-45 transition-transform duration-700"></i>
@@ -186,8 +208,27 @@
 
 <footer class="py-12 px-6 md:px-10 border-t border-[#1a1a1a] flex justify-between items-center">
     <p class="text-sm font-light text-accent uppercase tracking-widest">&copy; {{ date('Y') }} {{ $profile->name ?? '' }}</p>
-    <a href="#top" class="text-sm font-light text-accent uppercase tracking-widest hover:text-white transition-colors">Back to top</a>
+    <a href="#top" class="text-sm font-light text-accent uppercase tracking-widest hover:text-white transition-colors magnetic inline-block">Back to top</a>
 </footer>
+
+<!-- Background Audio -->
+<audio id="bg-audio" loop preload="none">
+    <source src="/audio/Tejano Blue - Cigarettes After Sex - (256 Kbps).mp3" type="audio/mpeg">
+</audio>
+
+<!-- Project Detail Modal -->
+<div id="project-modal" class="fixed inset-0 z-[1000] bg-[#0c0c0c] text-[#EAE8E3] translate-y-full flex flex-col pointer-events-none">
+    <div class="flex justify-between items-center p-6 md:p-10 border-b border-[#333]">
+        <h3 id="modal-title" class="text-2xl md:text-4xl font-serif">Project Title</h3>
+        <button id="close-modal" class="text-sm font-light tracking-widest uppercase hover:opacity-50 magnetic inline-block pointer-events-auto">Close [X]</button>
+    </div>
+    <div class="flex-1 overflow-y-auto p-6 md:p-10 pointer-events-auto">
+        <div class="max-w-4xl mx-auto">
+            <p id="modal-desc" class="text-lg md:text-2xl font-light text-[#B2A79E] mb-12">Project description goes here.</p>
+            <div id="modal-image" class="w-full aspect-video bg-[#1a1a1a] rounded overflow-hidden"></div>
+        </div>
+    </div>
+</div>
 
 <script>
     lucide.createIcons();
